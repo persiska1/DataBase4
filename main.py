@@ -86,3 +86,26 @@ def find_client(name, last_name, e_mail, phone_num):
 
 
     conn.commit()
+
+    if __name__ == '__main__':
+        with psycopg2.connect(database="TestDB", user="postgres", password="postgres") as conn:
+            with conn.cursor() as cur:
+                cur.execute('''
+                DROP TABLE phone_number;
+                DROP TABLE client
+                ''')
+                create_table()
+                add_client('Ad', 'Ellers', 'ad.a@gmail.com', '+324638453174')
+                add_client('Matthew', 'Park', 'Mat.P@mail.com', '+324754863174')
+                add_phone('Ad', '+420602272666')
+                add_phone('Ad', '+420777875355')
+                add_phone('Ad', '+420606879456')
+                add_phone('Matthew', '+324638453176')
+                add_phone('Matthew', '+324638453172')
+                add_phone('Matthew', '+324638453187')
+                update_client('Melany', 'Matthew', 'Melany', 'Seeto', 'seeto.mel@gmail.com')
+                delete_phone('Audrey', 'Smith')
+                delete_phone('Alison', 'Moore')
+                find_client('Ad', 'Ellers', 'ad.a@gmail.com', '+324638453174')
+
+                conn.commit()
